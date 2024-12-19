@@ -30,7 +30,7 @@ const VisaDetailsSection = () => {
               label="Visa Number"
               value={visaData.visaNumber}
               arabicLabel="رقم التأشيرة"
-              light={false}
+              light={true}
             />
             <DetailRow
               label="Visa Type"
@@ -39,6 +39,31 @@ const VisaDetailsSection = () => {
               arabicLabel="نوع التأشيرة"
               light={true}
             />
+            <DetailRow
+              label={"Visa Purpose"}
+              value={"Work"}
+              arabicValue={"ﻞﻤﻋ"}
+              arabicLabel={"ضﺮﻐﻟا"}
+              light={true}
+            />
+            <DetailRow
+            label="Date of Issue"
+            value={visaData.dateOfIssue}
+            arabicValue={""}
+            arabicLabel={"راﺪﺻﻹا ﺦﻳرﺎﺗ"}
+            light={true}/>
+            <DetailRow
+                label="Date of Expiry"
+                value={visaData.dateOfExpiry}
+                arabicValue={""}
+                arabicLabel={"ءﺎﻬﺘﻧﻹا ﺦﻳرﺎﺗ\n"}
+                light={true}/>
+            <DetailRow
+                label="Place of Issue"
+                value=""
+                arabicValue=" ﺔﻈﻓﺎﺤﻣ ﻞﻤﻋ ةراداراﺪﺻﻹا نﺎﻜﻣ"
+                arabicLabel={"ىﺪﻤﺣﻻا"}
+                light={true}/>
             {/* ... rest of the visa details rows ... */}
           </div>
         </div>
@@ -51,6 +76,54 @@ const VisaDetailsSection = () => {
           </div>
           <div className="border border-gray-200 rounded-lg shadow-sm">
             {/* ... visa holder detail rows ... */}
+            <DetailRow
+                label="Full Name"
+                value="ROSHAN - SHRESTHA"
+                arabicValue="ﻞﻣﺎﻜﻟا ﻢﺳﻻا"
+                arabicLabel={"ﺎﺜﺸﻳﺮﺷ - نﺎﺷور"}
+                light={true}/>
+            <DetailRow
+                label="MOI Reference"
+                value="368415244"
+                arabicValue=""
+                arabicLabel={"ﺔﻴﻠﺧاﺪﻟا ةرازو ﻊﺟﺮﻣ"}
+                light={true}/>
+            <DetailRow
+                label="Nationality"
+                value="NEPAL"
+                arabicValue="ﻴﺴﻨﺠﻟا"
+                arabicLabel={"لﺎﺒﻴﻨﻟاﺔ"}
+                light={true}/>
+            <DetailRow
+                label="Gender"
+                value="Male"
+                arabicValue="ﺮﻛذﺲﻨﺠﻟا"
+                arabicLabel={""}
+                light={true}/>
+            <DetailRow
+                label="Occupation"
+                value="DRIVER"
+                arabicValue="ﺔﻳرﺎﻧ ﺔﺟارد/ﻖﺋﺎﺳﺔﻨﻬﻤﻟا"
+                arabicLabel={""}
+                light={true}/>
+            <DetailRow
+                label="Date of Birth"
+                value="1996-02-27"
+                arabicValue=""
+                arabicLabel={"دﻼﻴﻤﻟا ﺦﻳرﺎﺗ"}
+                light={true}/>
+            <DetailRow
+                label="Passport No."
+                value="PA1788841"
+                arabicValue=""
+                arabicLabel={"ﺮﻔﺴﻟا زاﻮﺟ ﻢﻗر"}
+                light={true}/>
+            <DetailRow
+                label="Passport No."
+                value="PA1788841"
+                arabicValue=""
+                arabicLabel={"ﺮﻔﺴﻟا زاﻮﺟ ﻢﻗر"}
+                light={true}/>
           </div>
         </div>
 
@@ -72,7 +145,7 @@ const VisaDetailsSection = () => {
 const DetailRow = ({ label, value, arabicLabel, arabicValue, light }) => (
   <div className={`grid grid-cols-3 ${light ? 'bg-gray-50' : 'bg-white'} border-b last:border-b-0`}>
     <div className="p-3 text-[#1a237e]">{label}</div>
-    <div className="p-3 text-center text-[#1a237e]">
+    <div className="p-3 text-center text-[#1a237e] flex flex-col items-center">
       {value}
       {arabicValue && <div className="text-right">{arabicValue}</div>}
     </div>
