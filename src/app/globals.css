@@ -1,21 +1,40 @@
+/* styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Custom styles for the visa document */
+.visa-document {
+  font-family: Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Ensure proper RTL text rendering */
+.arabic {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* Custom colors matching the original document */
+.text-visa-blue {
+  color: #1a237e;
+}
+
+.bg-visa-light {
+  background-color: #f8f9fa;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  
+  .visa-document {
+    margin: 0;
+    padding: 0;
+  }
+  
+  @page {
+    margin: 20mm;
+  }
 }

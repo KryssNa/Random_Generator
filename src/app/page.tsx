@@ -1,101 +1,183 @@
-import Image from "next/image";
+"use client";
+import React, { useState } from 'react';
 
-export default function Home() {
+const VisaPage = () => {
+  const [visaData, setVisaData] = useState({
+    visaNumber: '266288804',
+    dateOfIssue: '2024-10-27',
+    dateOfExpiry: '2025-01-26',
+    fullName: 'ROSHAN - SHRESTHA',
+    moiReference: '368415244',
+    occupation: 'DRIVER',
+    passportNo: 'PA1788841',
+    dateOfBirth: '1996-02-27',
+    passportExpiry: '2033-06-12'
+  });
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gray-50">
+      {/* Top Border Pattern */}
+      <div className="h-8 bg-gradient-to-r from-blue-600 via-blue-800 to-blue-600" />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="max-w-4xl mx-auto bg-white shadow-lg">
+        {/* Header */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-[#003399] opacity-10 pattern-grid" />
+          <div className="relative px-6 py-4 flex justify-between items-center">
+            <div className="w-20">
+              <img src="/api/placeholder/80/80" alt="Kuwait Emblem" className="w-full" />
+            </div>
+            <div className="text-center flex-1">
+              <h1 className="text-[#003399] text-3xl font-sans mb-2">تأشيرة إلكترونية</h1>
+              <h1 className="text-[#003399] text-3xl font-sans">ELECTRONIC VISA</h1>
+            </div>
+            <div className="w-20">
+              <img src="/api/placeholder/80/80" alt="State of Kuwait" className="w-full" />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* QR Code Section */}
+        <div className="flex justify-between px-8 py-6">
+          <div className="w-32">
+            <img src="/api/placeholder/128/128" alt="QR Code Left" className="w-full" />
+          </div>
+          <div className="w-32">
+            <img src="/api/placeholder/128/128" alt="QR Code Right" className="w-full" />
+          </div>
+        </div>
+
+        <div className="px-8 pb-8">
+          {/* Visa Details */}
+          <SectionContainer
+            title="Visa Details"
+            arabicTitle="بيانات التأشيرة"
+          >
+            <DetailRow
+              label="Visa Number"
+              value={visaData.visaNumber}
+              arabicLabel="رقم التأشيرة"
+              light={false}
+            />
+            <DetailRow
+              label="Visa Type"
+              value="Private Sector Work Visa"
+              arabicValue="سمة دخول عمل اهلى"
+              arabicLabel="نوع التأشيرة"
+              light={true}
+            />
+            <DetailRow
+              label="Date of Issue"
+              value={visaData.dateOfIssue}
+              arabicLabel="تاريخ الإصدار"
+              light={false}
+            />
+            <DetailRow
+              label="Date Of Expiry"
+              value={visaData.dateOfExpiry}
+              arabicLabel="تاريخ الإنتهاء"
+              light={true}
+            />
+          </SectionContainer>
+
+          {/* Personal Details */}
+          <SectionContainer
+            title="Visa Holder Details"
+            arabicTitle="بيانات صاحب التأشيرة"
+          >
+            <DetailRow
+              label="Full Name"
+              value={visaData.fullName}
+              arabicValue="روشان - شريشثا"
+              arabicLabel="الاسم الكامل"
+              light={false}
+            />
+            <DetailRow
+              label="MOI Reference"
+              value={visaData.moiReference}
+              arabicLabel="مرجع وزارة الداخلية"
+              light={true}
+            />
+            <DetailRow
+              label="Nationality"
+              value="NEPAL"
+              arabicValue="النيبال"
+              arabicLabel="الجنسية"
+              light={false}
+            />
+            <DetailRow
+              label="Occupation"
+              value={visaData.occupation}
+              arabicValue="سائق"
+              arabicLabel="المهنة"
+              light={true}
+            />
+            <DetailRow
+              label="Date Of Birth"
+              value={visaData.dateOfBirth}
+              arabicLabel="تاريخ الميلاد"
+              light={false}
+            />
+            <DetailRow
+              label="Passport No."
+              value={visaData.passportNo}
+              arabicLabel="رقم جواز السفر"
+              light={true}
+            />
+          </SectionContainer>
+
+          {/* Employer Details */}
+          <SectionContainer
+            title="Employer/Family"
+            arabicTitle="بيانات صاحب العمل/العائل"
+          >
+            <DetailRow
+              label="Full Name"
+              value="شركه المها لتوصيل الطلبات الاستهلاكيه"
+              arabicLabel="الاسم الكامل"
+              light={false}
+            />
+            <DetailRow
+              label="MOI Reference"
+              value="491088"
+              arabicLabel="مرجع وزارة الداخلية"
+              light={true}
+            />
+            <DetailRow
+              label="Mobile Number"
+              value="0"
+              arabicLabel="رقم الهاتف"
+              light={false}
+            />
+          </SectionContainer>
+        </div>
+
+        {/* Bottom Border Pattern */}
+        <div className="h-8 bg-gradient-to-r from-blue-600 via-blue-800 to-blue-600" />
+      </div>
     </div>
   );
-}
+};
+
+const SectionContainer = ({ title, arabicTitle, children }) => (
+  <div className="mb-6">
+    <div className="flex justify-between mb-2">
+      <div className="text-[#003399] text-lg font-sans font-bold">{title}</div>
+      <div className="text-[#003399] text-lg font-sans text-right font-bold">{arabicTitle}</div>
+    </div>
+    <div className="border border-gray-200 rounded-lg">{children}</div>
+  </div>
+);
+
+const DetailRow = ({ label, value, arabicLabel, arabicValue, light }) => (
+  <div className={`grid grid-cols-3 ${light ? 'bg-gray-50' : 'bg-white'} border-b last:border-b-0`}>
+    <div className="p-3 text-[#003399] font-sans">{label}</div>
+    <div className="p-3 text-center text-[#003399] font-sans">
+      {value}
+      {arabicValue && <div className="text-right">{arabicValue}</div>}
+    </div>
+    <div className="p-3 text-right text-[#003399] font-sans">{arabicLabel}</div>
+  </div>
+);
+
+export default VisaPage;
