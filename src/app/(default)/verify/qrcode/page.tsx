@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-
+import React, { Suspense, useEffect, useState } from "react";
 interface VerificationData {
   status: string;
   visaNumber: string;
@@ -15,11 +14,11 @@ interface VerificationData {
   expiryDate: string;
 }
 
-const Page: React.FC = () => {
+// Create a separate component for the verification content
+const VerificationContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [verificationData, setVerificationData] =
-    useState<VerificationData | null>(null);
+  const [verificationData, setVerificationData] = useState<VerificationData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +28,7 @@ const Page: React.FC = () => {
         console.log("qrParam", qrParam);
 
         if (!qrParam) {
-          router.push("/"); // Redirect to home if no parameter
+          router.push("/");
           return;
         }
 
@@ -43,7 +42,7 @@ const Page: React.FC = () => {
         setVerificationData(data);
       } catch (error) {
         console.error("Error fetching verification data:", error);
-        router.push("/"); // Redirect to home on error
+        router.push("/");
       } finally {
         setIsLoading(false);
       }
@@ -72,38 +71,60 @@ const Page: React.FC = () => {
   const dataItems = verificationData
     ? [
         { label: "Visa Status حالة التأشيرة", value: verificationData.status },
-        {
-          label: "Visa Number رقم التأشيرة",
-          value: verificationData.visaNumber,
-        },
+        { label: "Visa Number رقم التأشيرة", value: verificationData.visaNumber },
         { label: "Nationality الجنسية", value: verificationData.nationality },
-        {
-          label: "Passport Number رقم الجواز",
-          value: verificationData.passportNumber,
-        },
-        {
-          label: "Arabic Name الاسم العربي",
-          value: verificationData.arabicName,
-        },
-        {
-          label: "Latin Name الاسم اللاتيني",
-          value: verificationData.latinName,
-        },
-        {
-          label: "Expiry Date تاريخ الإنتهاء",
-          value: formatDate(verificationData.expiryDate),
-        },
+        { label: "Passport Number رقم الجواز", value: verificationData.passportNumber },
+        { label: "Arabic Name الاسم العربي", value: verificationData.arabicName },
+        { label: "Latin Name الاسم اللاتيني", value: verificationData.latinName },
+        { label: "Expiry Date تاريخ الإنتهاء", value: formatDate(verificationData.expiryDate) },
       ]
     : [];
 
+  return (
+    <>
+      <div className='container mx-auto px-3 md:px-4'>
+        <div className='text-center mb-4'>
+          <div className='inline-flex items-center justify-center'>
+            <img src='/verify.png' alt='Alert' className='w-[75px] h-auto md:w[50px]' />
+          </div>
+          <p className='text-[#F78A17] font-bold text-[3.5vw] md:text-sm mb-1'>
+            تم إصدار التأشيرة، على العامل مراجعة السفارة لاعتمادها
+          </p>
+          <p className='text-[#F78A17] font-bold text-[3.5vw] md:text-sm'>
+            The visa has been issued, the worker must visit the embassy to approve it
+          </p>
+        </div>
+
+        <div className='flex max-md:flex-col md:flex-wrap md:gap-6 justify-center items-center max-w-2xl mx-auto space-y-4'>
+          {dataItems.map((item) => (
+            <div
+              key={item.label}
+              className='bg-[#FFFFFF] w-full h-[72px] flex flex-col items-center justify-center rounded-md border border-[#0000002d] p-4'
+            >
+              <div className='text-[#212529] text-[15px] md:text-base font-extrabold md:mb-2'>
+                {item.label}
+              </div>
+              <div className='text-[#6C757D] leading-tight text-[15px] md:text-base font-extrabold'>
+                {item.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Main Page Component
+const Page: React.FC = () => {
   return (
     <div
       className='flex justify-center flex-col min-h-screen'
       style={{ fontFamily: "Almarai, sans-serif" }}
     >
       <header className='py-[10px] max-md:pt-2 max-md:pb-3 flex justify-center'>
-        {/* Header content remains the same */}
         <div className='container md:px-12 lg:px-24 pb-2'>
+          {/* Header content */}
           <div className='flex justify-around items-center'>
             <div className='w-1/2 flex flex-col justify-center items-center text-center md:text-left  md:mb-0'>
               <p className='text-[#44546A] text-[17px] md:text-xl pt-2'>
@@ -147,40 +168,15 @@ const Page: React.FC = () => {
           </p>
         </div>
 
-        <div className='container mx-auto px-3 md:px-4'>
-          <div className='text-center mb-4'>
-            <div className='inline-flex items-center justify-center'>
-              <img
-                src='/verify.png'
-                alt='Alert'
-                className='w-[75px] h-auto md:w[50px]'
-              />
+        <Suspense 
+          fallback={
+            <div className='flex items-center justify-center min-h-screen'>
+              <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-[#1b47a1]'></div>
             </div>
-            <p className='text-[#F78A17] font-bold text-[3.5vw] md:text-sm mb-1'>
-              تم إصدار التأشيرة، على العامل مراجعة السفارة لاعتمادها
-            </p>
-            <p className='text-[#F78A17] font-bold text-[3.5vw] md:text-sm'>
-              The visa has been issued, the worker must visit the embassy to
-              approve it
-            </p>
-          </div>
-
-          <div className='flex max-md:flex-col md:flex-wrap md:gap-6 justify-center items-center max-w-2xl mx-auto space-y-4'>
-            {dataItems.map((item) => (
-              <div
-                key={item.label}
-                className='bg-[#FFFFFF] w-full h-[72px] flex flex-col items-center justify-center rounded-md border border-[#0000002d] p-4'
-              >
-                <div className='text-[#212529] text-[15px] md:text-base font-extrabold md:mb-2'>
-                  {item.label}
-                </div>
-                <div className='text-[#6C757D] leading-tight text-[15px] md:text-base font-extrabold'>
-                  {item.value}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+          }
+        >
+          <VerificationContent />
+        </Suspense>
       </main>
 
       <footer className='bg-[#F3F5F7] py-4 mt-8 border-[#D6DCE5] border-b-4'>
@@ -189,8 +185,7 @@ const Page: React.FC = () => {
           <p className='text-[#1b47a1] text-[12px] md:text-xs'>
             جميع الحقوق محفوظة لوزارة الداخلية – دولة الكويت © 2022
             <br />
-            All Rights Reserved for Ministry of Interior – State of Kuwait ©
-            2022
+            All Rights Reserved for Ministry of Interior – State of Kuwait © 2022
           </p>
           <div className='flex justify-center space-x-4 pt-2'>
             <Link

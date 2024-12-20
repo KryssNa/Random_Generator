@@ -4,9 +4,12 @@ import { NextResponse } from "next/server";
 import connectDB from "../database/db";
 import { User } from "../database/user";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+dotenv.config();
 
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+
+const JWT_SECRET = process.env.NEXTAUTH_SECRET || "default_secret";
 
 export function generateToken(user: any) {
   return jwt.sign(

@@ -4,7 +4,10 @@ import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { authOptions } from './auth';
 
-const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'your-secret-key';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'default';
 
 interface JWTPayload {
   id: string;

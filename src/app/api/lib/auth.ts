@@ -5,9 +5,12 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import connectDB from '../database/db';
 import { User } from '../database/user';
+// dot env configuration
+import dotenv from 'dotenv';
+dotenv.config();
 
 // JWT secret from environment variable
-const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'your-secret-key';
+const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'default';
 
 // Token generation function
 const generateToken = (user: any) => {

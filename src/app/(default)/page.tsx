@@ -27,7 +27,7 @@ const Page: React.FC = () => {
                 alt='MOI Logo'
                 width={94}
                 height={94}
-                className='  w-[75px] h-auto mr-6'
+                className='  w-[75px] h-auto'
               />
             </div>
             <div className='text-center md:text-left'>
