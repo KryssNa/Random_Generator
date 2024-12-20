@@ -1,32 +1,26 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";  // Global CSS styles
+import type { Metadata } from "next";
+import { Almarai } from "next/font/google";
+import "./globals.css";
 
-// Load fonts
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// Import Almarai font
+const almarai = Almarai({ weight: "400", subsets: ["arabic"] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const metadata: Metadata = {
+  title: "MOI QR Verification",
+  description: "MOI QR Verification",
+};
 
-// Root Layout component that wraps the entire app
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
-        <title>My Next.js App</title>
+        <link rel="icon" href="/favicon.png" type="image/png" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-
-        {children}
-      </body>
+      <body className={`${almarai.className} antialiased`}>{children}</body>
     </html>
   );
 }
